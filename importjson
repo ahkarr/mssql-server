@@ -1,0 +1,6 @@
+Declare @JSON varchar(max)
+SELECT @JSON=BulkColumn
+FROM OPENROWSET 
+(BULK '*****.json',SINGLE_CLOB) import
+SELECT * INTO `tablename`
+FROM OPENJSON (@JSON)
