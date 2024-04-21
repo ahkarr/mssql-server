@@ -1,0 +1,23 @@
+USE [master]
+GO
+
+-- CREATE LOGIN
+CREATE LOGIN [UAT1DB-LINK] WITH PASSWORD = 'uat1db@123';
+GO
+
+-- CREATE USER
+CREATE USER [UAT1DB-LINK] FOR LOGIN [UAT1DB-LINK];
+GO
+
+-- ALTER SERVER ROLE
+ALTER SERVER ROLE sysadmin ADD MEMBER [UAT1DB-LINK];
+
+-- ALTER USER MAPPING
+USE [s9playstore]
+EXEC sp_addrolemember 'db_owner','UAT1DB-LINK';
+
+-- CHECK SYSLOGINS
+USE [master]
+GO
+
+SELECT name,dbname,loginname FROM sys.syslogins
